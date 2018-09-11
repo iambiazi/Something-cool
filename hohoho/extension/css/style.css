@@ -1,0 +1,19 @@
+body {
+  width: 400px;
+  height: 800px;
+  background-color: forestgreen;
+  color: red;
+}
+
+/*@media screen and (max-width: 360px) {*/
+  /*body {*/
+    /*width: 100%;*/
+  /*}*/
+/*}*/
+
+
+.listAnchor {
+  color: white;
+}
+
+

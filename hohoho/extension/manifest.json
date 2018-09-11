@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "Ho Ho Ho Yo",
+  "description": "Flexin on frogs",
+  "version": "0.0.1",
+  "browser_action": {
+   "default_popup": "popup.html",
+   "default_title": "Ho Ho Ho Yo"
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
