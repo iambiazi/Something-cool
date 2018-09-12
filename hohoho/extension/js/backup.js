@@ -44,6 +44,9 @@ $(document).ready(function() {
     $($toDelete).fadeOut('slow', ()=> {
       ($toDelete).hide();
     });
+    let $deleteUrl = $($toDelete).children('a').attr('href');
+    let index = wishList.indexOf(el => el.url === $deleteUrl);
+    wishList.splice(index, 1);
     //     localStorage.removeItem( $('.user-input-title').val() ); // grab the title and plop here
     localStorage.setItem('wishList', JSON.stringify(wishList));
   };
