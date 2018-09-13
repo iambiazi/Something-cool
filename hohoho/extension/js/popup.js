@@ -1,21 +1,39 @@
 
+
 $(document).ready(function() {
 
 
-  let wishList = [];
-  wishList = JSON.parse(localStorage.getItem('wishList')) || [];
+  let username = localStorage.getItem('username');
+  $('#custom-name').text((`${username}'s Wishlist`).toUpperCase());
 
-  console.log(wishList);
+  let capturedTitle;
+
+
+
+  $('#go-to-options').on('click', () => {
+    if (chrome.runtime.openOptionsPage) {
+      chrome.runtime.openOptionsPage();
+    } else {
+      window.open(chrome.runtime.getURL('options.html'));
+    }
+  });
+
+
+
+  let wishList = [];
+  wishList = JSON.parse(localStorage.getItem(username + '-wishList')) || [];
+
+
 
 
   const populateList = () => {
 
     for (let i = 0; i < wishList.length; i++) {
-      let $listItem = $('<div></div>');
-      $listItem.html(`<a href=${wishList[i].url} target="_self" id=item_${i} class="listAnchor">${wishList[i].title}</a>
+      let $listItem = $('<li></li>');
+      $listItem.html(`<a href=${wishList[i].url} target="_parent" id=item_${i} class="listAnchor">${wishList[i].title}</a>
                       <input type="hidden" class="text-input">
                      `);
-      $('.listContainer').append($listItem);
+      $('.listlist').append($listItem);
     }
   };
 
@@ -31,12 +49,12 @@ $(document).ready(function() {
     let $deleteUrl = $($toDelete).children('a').attr('href');
     let index = wishList.findIndex(el => el.url === $deleteUrl);
     wishList.splice(index, 1);
-    localStorage.setItem('wishList', JSON.stringify(wishList));
+    localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
     location.reload();
   };
 
   const editItem = (editTarget) => {
-    console.log('ran');
+
     $(editTarget).hide();
     let $inputBox = $(editTarget).siblings();
     let title = editTarget.text();
@@ -51,7 +69,7 @@ $(document).ready(function() {
       $(editTarget).show();
       $inputBox.hide();
       wishList[index].title = title;
-      localStorage.setItem('wishList', JSON.stringify(wishList));
+      localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
       location.reload();
     });
     $inputBox.keypress((e)=>{
@@ -61,7 +79,7 @@ $(document).ready(function() {
         $(editTarget).show();
         $inputBox.hide();
         wishList[index].title = title;
-        localStorage.setItem('wishList', JSON.stringify(wishList));
+        localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
         location.reload();
       }
 
@@ -76,30 +94,30 @@ $(document).ready(function() {
 
 
   const addItem = (item) => {
-    let $listItem = $('<div></div>');
-    $listItem.html(`<a href=${item.url} target="_self" id=item_${wishList.length} class="listAnchor">${item.title}
+    let $listItem = $('<li></li>');
+    $listItem.html(`<a href=${item.url} target="_parent" id=item_${wishList.length} class="listAnchor">${item.title}
                     <input type="hidden" class="text-input">    
                    `);
-    $('.listContainer').append($listItem);
+    $('.listlist').append($listItem);
   };
 
-  const confirmAdded = (id) => {
-    $('[data-toggle="popover"]').popover('disable').popover('hide');
-    $(id).popover('enable').popover('show');
-    setTimeout(() => { $(id).popover('disable').popover('hide'); }, 2000);
-    $(id).select();
-  };
+  // const confirmAdded = (id) => {
+  //   $('[data-toggle="popover"]').popover('disable').popover('hide');
+  //   $(id).popover('enable').popover('show');
+  //   setTimeout(() => { $(id).popover('disable').popover('hide'); }, 2000);
+  //   $(id).select();
+  // };
 
   $('#add-item-button').click((event) => {
     let inputId = '#' + event.target.id.replace('add-item-button', 'urlInput');
     let $capturedURL = $(inputId).val();
-    let $capturedTitle = $('#tabTitle').text();
+    // let $capturedTitle = $('#tabTitle').text();
 
-    confirmAdded(inputId);
+
 
     let itemObj = {
       url: $capturedURL,
-      title: $capturedTitle
+      title: capturedTitle
     };
 
 
@@ -107,7 +125,7 @@ $(document).ready(function() {
       wishList.push(itemObj);
 
 
-      localStorage.setItem('wishList', JSON.stringify(wishList));
+      localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
       addItem(itemObj);
 
     } else {
@@ -116,33 +134,22 @@ $(document).ready(function() {
 
     location.reload(); // could fix with event delegation
 
+    setTimeout(confirmAdded(inputId),500);
+
   });
 
 
   const addLinkDataFromTab = (tabs) => {
     currentTab = tabs[0];
-    $('#tabTitle').text(currentTab.title);
+    capturedTitle = currentTab.title;
+    // $('#tabTitle').text(currentTab.title); //dont know if I want to keep this
     $('#urlInput').val(currentTab.url);
   };
 
-  // To enable cross-browser use you need to see if this is Chrome or not
-  if (chrome) {
-    chrome.tabs.query(
-      {active: true, currentWindow: true},
-      (arrayOfTabs) => { addLinkDataFromTab(arrayOfTabs); }
-    );
-    // This enables links to be opened in new tabs
-    $('a').click( (event) => { chrome.tabs.create({url: event.target.href}); } );
-  } else {
-    browser.tabs.query({active: true, currentWindow: true})
-      .then(addLinkDataFromTab);
-    // This enables links to be opened in new tabs
-    $('a').click( (event) => { browser.tabs.create({url: event.target.href}); } );
-  }
 
 
   // disable right click and show custom context menu
-  $('.listContainer').on('contextmenu', '.listAnchor', function (e) {
+  $('.listlist').on('contextmenu', '.listAnchor', function (e) {
     var id = this.id;
     $('#txt_id').val(id);
     var top = e.pageY + 5;
@@ -189,10 +196,48 @@ $(document).ready(function() {
 
   });
 
+  if (chrome) {
+    chrome.tabs.query(
+      {active: true, currentWindow: true},
+      (arrayOfTabs) => { addLinkDataFromTab(arrayOfTabs); }
+    );
+    // This enables links to be opened in new tabs
+    $('a').click( (event) => { chrome.tabs.update({url: event.target.href}); } );
+  } else {
+    browser.tabs.query({active: true, currentWindow: true})
+      .then(addLinkDataFromTab);
+    // This enables links to be opened in new tabs
+    $('a').click( (event) => { browser.tabs.update({url: event.target.href}); } );
+  }
 
 
+  var w = window.innerWidth , h = window.innerHeight,
+    container = document.getElementById("container"),
+    sizes = ["Small", "Medium", "Large"],
+    types = ["round", "star", "real", "sharp", "ring"],
+    snowflakes = 50;
 
+  for (var i = 0; i < snowflakes; i++) {
+    var snowflakeDiv = document.createElement('div');
+    var sizeIndex = Math.ceil(Math.random() * 3) -1; //get random number between 0 and 2
+    var size = sizes[sizeIndex]; //get random size
+    var typeIndex = Math.ceil(Math.random() * 5) -1;
+    var type = types[typeIndex];
+    TweenMax.set(snowflakeDiv, {attr: {class: type + size}, x: R(0,w), y: R(-200,-150) });
+    container.appendChild(snowflakeDiv);
+    snowing(snowflakeDiv);
+  }
 
+  function snowing(element) {
+    TweenMax.to(element, R(5,12), {y: h+100, ease: Linear.easeNone, repeat:-1, delay: -15});
+    TweenMax.to(element, R(4,8), {x: '+=100', repeat: -1, yoyo: true, ease: Sine.easeInOut});
+    TweenMax.to(element, R(2,8), {rotation: R(0,360), repeat: -1, yoyo: true, ease:Sine.easeInOut, delay: -5});
+  };
+
+  function R(min,max) {
+    return min + Math.random() * (max-min)
+  };
 });
+
 
 

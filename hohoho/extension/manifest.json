@@ -3,11 +3,20 @@
   "name": "Ho Ho Ho Yo",
   "description": "Flexin on frogs",
   "version": "0.0.1",
+  "options_page": "options.html",
   "browser_action": {
    "default_popup": "popup.html",
    "default_title": "Ho Ho Ho Yo"
   },
   "permissions": [
-    "tabs"
-  ]
+    "tabs",
+    "storage"
+  ],
+  "icons": {
+    "16": "images/frogicon.png",
+    "48": "images/frogicon.png",
+    "128": "images/frogicon.png"
+  }
+
+
 }

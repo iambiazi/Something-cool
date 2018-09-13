@@ -6,26 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/themes/flatly/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="CoveredByYourGrace.ttf" rel="stylesheet">
     <script src="js/lib/jquery.js"></script>
     <script src="js/lib/clipboard-polyfill.js"></script>
     <script src="js/lib/bootstrap.bundle.js"></script>
+    <script src="js/lib/TweenLite.js"></script>
+    <script src="js/lib/TweenMax.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet">
+
+
+
+
 
 
   </head>
 
-  <body>
+  <body id="body">
+    <div id="background">
+
+    </div>
+
+    <div id='container'></div>
+
 
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
 
           <p>
-            <h2>Ho Ho Ho Yo</h2>
+            <!--<h2>Ho Ho Ho Yo</h2>-->
+            <h1 id="custom-name"></h1>
+
 
           </p>
-          <img src="frog.png" height="150px">
+          <!--<img src="../images/frog.png" height="50px">-->
+          <img src="../images/santa.png" height="120px" id="santa">
 
-          <h3 id="tabTitle" class="lead">Tab title</h3>
+          <h3 id="tabTitle" class="lead"></h3>
 
           <div>
             <input id="urlInput" type="text"
@@ -46,6 +63,9 @@
           </div>
 
           <div class="listContainer">
+            <ul class="listlist">
+
+            </ul>
 
             <div class='context-menu'>
               <ul>
@@ -58,10 +78,16 @@
             <input type='hidden' value='' id='txt_id'>
 
 
+
+
           </div> <!-- end col -->
       </div> <!-- end row -->
     </div> <!-- end container -->
+
     <script src="js/popup.js"></script>
+
+    </div>
+
   </body>
 
 </html>
