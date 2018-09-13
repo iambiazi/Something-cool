@@ -2,17 +2,14 @@
   font-family: "Avenir Next";
 }
 
+
 body {
-  width: 305px;
+  margin-left: 15px;
+  width: 315px;
   height: 1000px;
   color: red;
   background-color: rgba(0, 153, 204, .7);
 }
-
-/*#background-image {*/
-  /*margin-top: -100px;*/
-  /*position: fixed;*/
-/*}*/
 
 #santa {
   mix-blend-mode: multiply;
@@ -31,12 +28,22 @@ li {
   opacity: .85;
 }
 
+#options-button{
+  text-align: center;
+  border-radius: 3px;
+  background: transparent;
+  border-color: transparent;
+  float: right;
+  margin-right: -20px;
+}
+
+.col-sm-12 {
+  width: 315px;
+}
 
 .listAnchor {
   color: white;
 }
-
-
 
 .container{
   border-radius:3px;
@@ -44,12 +51,12 @@ li {
 }
 
 h1{
-  font-weight: normal;
+  font-weight: bold;
   text-align: center;
   font-size: 40px;
   font-family: 'open sans';
   letter-spacing: 5px;
-
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 
 }
 
@@ -61,7 +68,6 @@ h1:hover{
   cursor: pointer;
 }
 
-/* Context menu */
 .context-menu{
   display: none;
   position: absolute;
@@ -70,7 +76,6 @@ h1:hover{
   width: 200px;
   background: white;
   height: 70px;
-
 }
 
 .context-menu ul{
@@ -167,13 +172,11 @@ h1:hover{
   transition: 50ms linear;
 }
 
-
 .listContainer{
   width:280px;
   margin-left: 10px;
 
 }
-
 
 .listContainer ul{
   counter-reset: li;
@@ -228,9 +231,6 @@ h1:hover{
   color:white;
   border-radius: 4px;
 }
-
-
-
 
 .roundSmall,
 .roundMedium,
@@ -318,7 +318,3 @@ h1:hover{
   width: 35px;
   height: 35px;
 }
-
-
-
-

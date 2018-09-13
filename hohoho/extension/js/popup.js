@@ -1,16 +1,11 @@
-
-
-$(document).ready(function() {
-
+$(document).ready(function () {
 
   let username = localStorage.getItem('username');
-  $('#custom-name').text((`${username}'s Wishlist`).toUpperCase());
-
   let capturedTitle;
 
+  $('#custom-name').text((`${username}'s Wishlist`).toUpperCase());
 
-
-  $('#go-to-options').on('click', () => {
+  $('#options-button').on('click', () => {
     if (chrome.runtime.openOptionsPage) {
       chrome.runtime.openOptionsPage();
     } else {
@@ -18,13 +13,8 @@ $(document).ready(function() {
     }
   });
 
-
-
   let wishList = [];
   wishList = JSON.parse(localStorage.getItem(username + '-wishList')) || [];
-
-
-
 
   const populateList = () => {
 
@@ -40,12 +30,8 @@ $(document).ready(function() {
   populateList();
 
 
-
   const deleteItem = ($toDelete) => {
-    // let $toDelete = $(e.target).parent();
-    // $($toDelete).fadeOut('slow', ()=> {
-    //   ($toDelete).hide();
-    // });
+
     let $deleteUrl = $($toDelete).children('a').attr('href');
     let index = wishList.findIndex(el => el.url === $deleteUrl);
     wishList.splice(index, 1);
@@ -63,7 +49,7 @@ $(document).ready(function() {
     $inputBox.show();
     $inputBox.attr('type', 'text').val(title).focus();
     $inputBox.select();
-    $inputBox.blur(()=>{
+    $inputBox.blur(() => {
       title = $inputBox.val();
       $(editTarget).text(title);
       $(editTarget).show();
@@ -72,7 +58,7 @@ $(document).ready(function() {
       localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
       location.reload();
     });
-    $inputBox.keypress((e)=>{
+    $inputBox.keypress((e) => {
       if (e.which === 13) {
         title = $inputBox.val();
         $(editTarget).text(title);
@@ -82,16 +68,8 @@ $(document).ready(function() {
         localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
         location.reload();
       }
-
-
     });
-
-
-
-
   };
-
-
 
   const addItem = (item) => {
     let $listItem = $('<li></li>');
@@ -113,13 +91,10 @@ $(document).ready(function() {
     let $capturedURL = $(inputId).val();
     // let $capturedTitle = $('#tabTitle').text();
 
-
-
     let itemObj = {
       url: $capturedURL,
       title: capturedTitle
     };
-
 
     if (wishList.filter(el => el.url === $capturedURL).length < 1) {
       wishList.push(itemObj);
@@ -134,10 +109,9 @@ $(document).ready(function() {
 
     location.reload(); // could fix with event delegation
 
-    setTimeout(confirmAdded(inputId),500);
+    setTimeout(confirmAdded(inputId), 500);
 
   });
-
 
   const addLinkDataFromTab = (tabs) => {
     currentTab = tabs[0];
@@ -145,8 +119,6 @@ $(document).ready(function() {
     // $('#tabTitle').text(currentTab.title); //dont know if I want to keep this
     $('#urlInput').val(currentTab.url);
   };
-
-
 
   // disable right click and show custom context menu
   $('.listlist').on('contextmenu', '.listAnchor', function (e) {
@@ -169,18 +141,18 @@ $(document).ready(function() {
   });
 
   // Hide context menu
-  $(document).bind('contextmenu click', function() {
+  $(document).bind('contextmenu click', function () {
     $('.context-menu').hide();
     $('#txt_id').val('');
   });
 
   // disable context-menu from custom menu
-  $('.context-menu').bind('contextmenu', function() {
+  $('.context-menu').bind('contextmenu', function () {
     return false;
   });
 
   // Clicked context-menu item
-  $('.context-menu li').click(function() {
+  $('.context-menu li').click(function () {
     var className = $(this).find('span:nth-child(1)').attr('class');
     var titleid = $('#txt_id').val();
     let listTarget = $('#' + titleid).parent();
@@ -199,19 +171,25 @@ $(document).ready(function() {
   if (chrome) {
     chrome.tabs.query(
       {active: true, currentWindow: true},
-      (arrayOfTabs) => { addLinkDataFromTab(arrayOfTabs); }
+      (arrayOfTabs) => {
+        addLinkDataFromTab(arrayOfTabs);
+      }
     );
     // This enables links to be opened in new tabs
-    $('a').click( (event) => { chrome.tabs.update({url: event.target.href}); } );
+    $('a').click((event) => {
+      chrome.tabs.update({url: event.target.href});
+    });
   } else {
     browser.tabs.query({active: true, currentWindow: true})
       .then(addLinkDataFromTab);
     // This enables links to be opened in new tabs
-    $('a').click( (event) => { browser.tabs.update({url: event.target.href}); } );
+    $('a').click((event) => {
+      browser.tabs.update({url: event.target.href});
+    });
   }
 
 
-  var w = window.innerWidth , h = window.innerHeight,
+  var w = window.innerWidth, h = window.innerHeight,
     container = document.getElementById("container"),
     sizes = ["Small", "Medium", "Large"],
     types = ["round", "star", "real", "sharp", "ring"],
@@ -219,23 +197,23 @@ $(document).ready(function() {
 
   for (var i = 0; i < snowflakes; i++) {
     var snowflakeDiv = document.createElement('div');
-    var sizeIndex = Math.ceil(Math.random() * 3) -1; //get random number between 0 and 2
+    var sizeIndex = Math.ceil(Math.random() * 3) - 1; //get random number between 0 and 2
     var size = sizes[sizeIndex]; //get random size
-    var typeIndex = Math.ceil(Math.random() * 5) -1;
+    var typeIndex = Math.ceil(Math.random() * 5) - 1;
     var type = types[typeIndex];
-    TweenMax.set(snowflakeDiv, {attr: {class: type + size}, x: R(0,w), y: R(-200,-150) });
+    TweenMax.set(snowflakeDiv, {attr: {class: type + size}, x: R(0, w), y: R(-200, -150)});
     container.appendChild(snowflakeDiv);
     snowing(snowflakeDiv);
   }
 
   function snowing(element) {
-    TweenMax.to(element, R(5,12), {y: h+100, ease: Linear.easeNone, repeat:-1, delay: -15});
-    TweenMax.to(element, R(4,8), {x: '+=100', repeat: -1, yoyo: true, ease: Sine.easeInOut});
-    TweenMax.to(element, R(2,8), {rotation: R(0,360), repeat: -1, yoyo: true, ease:Sine.easeInOut, delay: -5});
+    TweenMax.to(element, R(5, 12), {y: h + 100, ease: Linear.easeNone, repeat: -1, delay: -15});
+    TweenMax.to(element, R(4, 8), {x: '+=100', repeat: -1, yoyo: true, ease: Sine.easeInOut});
+    TweenMax.to(element, R(2, 8), {rotation: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5});
   };
 
-  function R(min,max) {
-    return min + Math.random() * (max-min)
+  function R(min, max) {
+    return min + Math.random() * (max - min)
   };
 });
 
