@@ -1,0 +1,43 @@
+.square {
+    background: black;
+    height: 50px;
+    width: 50px;
+}
+
+.slider-container {
+    margin-top: 40px;
+}
+
+.current-color {
+    display: flex;
+
+}
+
+.rect {
+    height: 25px;
+    width: 25px;
+    background: white;
+    border: solid black;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.color-choice {
+    margin-top: 50px;
+}
+
+#start-custom {
+    margin-top: 50px;
+}
+
+#red {
+    margin-left: 15px;
+}
+
+#green {
+    margin-left: 3px;
+}
+
+#blue {
+    margin-left: 12px;
+}

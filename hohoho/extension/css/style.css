@@ -8,7 +8,7 @@ body {
   width: 315px;
   height: 1000px;
   color: red;
-  background-color: rgba(0, 153, 204, .7);
+  background-color: forestgreen;
 }
 
 #santa {
@@ -17,7 +17,9 @@ body {
   margin-right: auto;
   display: block;
   margin-bottom: -10px;
-  margin-top: -10px;
+  margin-top: -20px;
+  height: 140px;
+
 }
 
 #urlInput {
@@ -54,7 +56,7 @@ h1{
   font-weight: bold;
   text-align: center;
   font-size: 40px;
-  font-family: 'open sans';
+  font-family: 'sans-serif';
   letter-spacing: 5px;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 
@@ -73,7 +75,7 @@ h1:hover{
   position: absolute;
   border: 1px solid black;
   border-radius: 3px;
-  width: 200px;
+  width: 140px;
   background: white;
   height: 70px;
 }
@@ -84,9 +86,9 @@ h1:hover{
 
 .context-menu ul li{
   padding: 5px 2px;
-  color: white;
+  color: #da3b2c;
   font-weight: bold;
-  background-color: forestgreen;
+  background-color: white;
   border: solid black;
   border-width: 1px;
 }
@@ -172,6 +174,8 @@ h1:hover{
   transition: 50ms linear;
 }
 
+
+
 .listContainer{
   width:280px;
   margin-left: 10px;
@@ -221,7 +225,7 @@ h1:hover{
   left: -1.3em;
   top: 50%;
   margin-top: -1.3em;
-  background:#da3b2c;
+  background: inherit;
   height: 2em;
   width: 2em;
   line-height: 2em;
@@ -307,7 +311,7 @@ h1:hover{
   position: absolute;
   width: 15px;
   height: 15px;
-  background-image: url(http://www.freepngimg.com/thumb/snowflakes/13-white-snowflake-png-image-thumb.png);
+  background: url(http://www.freepngimg.com/thumb/snowflakes/13-white-snowflake-png-image-thumb.png);
   background-size: 100% 100%;
 }
 .ringMedium {
@@ -318,3 +322,27 @@ h1:hover{
   width: 35px;
   height: 35px;
 }
+
+
+canvas {
+  display: block;
+  position: absolute;
+  zindex: 1;
+  pointer-events: none;
+}
+
+#content {
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -150px;
+  color: silver;
+  font-family: verdana;
+  font-size: 45px;
+  font-weight: bold;
+}
+

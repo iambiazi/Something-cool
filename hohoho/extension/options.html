@@ -14,19 +14,72 @@
     </form>
     <div id="options">
         <select id="select">
-            <option selected disabled>Choose here</option>
+            <option selected disabled>Select Current User</option>
         </select>
+        <span id="current-user"></span>
+    </div>
 
+    <select id="select-theme">
+        <option selected disabled>Choose Your Theme</option>
+        <option value="Christmas">Christmas</option>
+        <option value="Birthday">Birthday</option>
+    </select>
+    <span id="current-theme"></span>
+
+    <div><button id="start-custom" type="button" >Click To Create A Custom Theme</button></div>
+
+
+    <div id="custom-wrapper">
+    <div class="color-choice">
+
+        <input type="checkbox" class="checkbox" id="background-color"> Background Color
+        <input type="checkbox" class="checkbox" id="title-color"> Title Color
+        <input type="checkbox" class="checkbox" id="list-color"> List Color
+        <input type="checkbox" class="checkbox" id="button-color"> Button Color
+    </div>
+
+    <div class="current-color">
+        <div class="rect" id="background-square"></div>
+        <div class="rect" id="title-square"></div>
+        <div class="rect" id="list-square"></div>
+        <div class="rect" id="button-square"></div>
 
     </div>
-    <div id="current-user"></div>
-    <div id="delete" style="margin-top:100px">
+    <input type="text" placeholder="Enter A Name For Your Theme" id="custom-name">
+    <button id="submit-custom">Create Custom Theme</button>
+    <div id="custom-theme-error"></div>
+
+
+    <form class="slider-container">
+        <span>Red</span><input type="text" id="red" placeholder="red" autocomplete="off" value="0">
+        <input type="range" min="0" max="255" class="slider" id="red-slider"><br>
+        <span>Green</span><input type="text" id="green" placeholder="green" autocomplete="off" value="0">
+        <input type="range" min="0" max="255" class="slider" id="green-slider"><br>
+        <span>Blue</span><input type="text" id="blue" placeholder="blue" autocomplete="off" value="0">
+        <input type="range" min="0" max="255" class="slider" id="blue-slider">
+        <input type="submit" id="submit-button" value="Set Color">
+    </form>
+    <div class="square"></div>
+
+    </div>
+
+
+
+
+    <div id="delete" style="margin-top:50px">
         <select id="select-delete" >
             <option selected disabled>Choose user to delete</option>
         </select>
-
-
     </div>
+    <span id="delete-confirm"></span>
+
+    <div id="delete-custom-container" >
+        <select id="delete-custom" >
+            <option selected disabled>Choose theme to delete</option>
+        </select>
+    </div>
+    <span id="custom-delete-confirm"></span>
+
 
     <script src="options.js"></script>
 </body>
