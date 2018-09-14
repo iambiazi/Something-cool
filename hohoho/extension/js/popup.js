@@ -446,7 +446,6 @@ $(document).ready(function () {
       //get info based on name
       let customTheme = JSON.parse(localStorage.getItem('custom-themes')).filter(el => el[0] === localStorage.getItem('current-theme'));
       let [[a, backgroundColor, titleColor, listColor, buttonColor]] = customTheme;
-      console.log(customTheme);
 
       $('body').css('background-color', backgroundColor);
       $('#santa').attr('src', '../images/birthdayfrog.png');

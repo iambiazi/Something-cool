@@ -10,7 +10,6 @@ $(document).ready(function () {
 
   const getCustomThemes = (() => {
     for (let i = 0; i < customThemeList.length; i++) {
-      console.log(customThemeList);
       $('#select-theme').append(`<option value="${customThemeList[i][0]}">${customThemeList[i][0]}</option>`);
       $('#delete-custom').append(`<option value="${customThemeList[i][0]}">${customThemeList[i][0]}</option>`);
     }
@@ -145,7 +144,6 @@ $(document).ready(function () {
   $(document).on('change', '#delete-custom', () => {
     let deletedTheme = $('#delete-custom option:selected').val();
     customThemeList = customThemeList.filter(el => el[0] !== deletedTheme);
-    console.log(customThemeList);
     localStorage.setItem('custom-themes', JSON.stringify(customThemeList));
     $(`option:contains(${deletedTheme})`).remove();
 
