@@ -2,6 +2,7 @@
     background: black;
     height: 50px;
     width: 50px;
+    border-radius: 2px;
 }
 
 .slider-container {
@@ -41,3 +42,32 @@
 #blue {
     margin-left: 12px;
 }
+
+#background-square {
+    margin-left: 50px;
+}
+
+#title-square {
+    margin-left: 85px;
+}
+
+#list-square {
+    margin-left: 55px;
+}
+
+#button-square {
+    margin-left: 60px;
+}
+
+#custom-name {
+    margin-top: 15px;
+}
+
+#submit-custom {
+    margin-top: 15px;
+    border: solid black;
+    border-width: 2px;
+    border-radius: 3px;
+    background: lightgray;
+}
+

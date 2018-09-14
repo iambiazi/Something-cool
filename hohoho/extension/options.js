@@ -1,12 +1,10 @@
 // To enable cross-browser use you need to see if this is Chrome or not
-$(document).ready(function() {
+$(document).ready(function () {
 
   let users = JSON.parse(localStorage.getItem('users')) || [];
   let selectedUser = localStorage.getItem('user-name') || undefined;
   let selectedTheme = localStorage.getItem('current-theme') || localStorage.setItem('current-theme', 'christmas');
   let customThemeList = JSON.parse(localStorage.getItem('custom-themes')) || [];
-
-
 
   $('#custom-wrapper').hide();
 
@@ -17,8 +15,6 @@ $(document).ready(function() {
       $('#delete-custom').append(`<option value="${customThemeList[i][0]}">${customThemeList[i][0]}</option>`);
     }
   })();
-
-
 
   $(document).on('submit', '#user-form', (e) => {
     e.preventDefault();
@@ -36,13 +32,13 @@ $(document).ready(function() {
     }
   });
 
-  $(users).each(function() {
+  $(users).each(function () {
     $('#select').append($('<option>').text(this.val));
     $('#select-delete').append($('<option>').text(this.val));
 
   });
 
-  $(document).on('change', '#select', ()=> {
+  $(document).on('change', '#select', () => {
     selectedUser = $('#select option:selected').val();
     localStorage.setItem('user-name', selectedUser);
     $('#current-user').html(`<b>Current User's Wishlist: ${localStorage.getItem('user-name')}</b>`);
@@ -50,9 +46,7 @@ $(document).ready(function() {
 
   $('#current-user').text(`Current User's Wishlist: ${localStorage.getItem('user-name')}`);
 
-
-
-  $('#select-theme').change(()=>{
+  $('#select-theme').change(() => {
     selectedTheme = $('#select-theme option:selected').val();
     localStorage.setItem('current-theme', selectedTheme);
     $('#current-theme').html(`<b>Current Theme: ${selectedTheme}</b>`);
@@ -64,7 +58,7 @@ $(document).ready(function() {
     $('#current-theme').text(`No Current Theme Chosen`);
   }
 
-  $(document).on('change', '#select-delete', ()=>{
+  $(document).on('change', '#select-delete', () => {
     let deletedTheme = $('#select-delete option:selected').val();
     users.splice(users.indexOf(deletedTheme), 1);
     localStorage.removeItem(deletedTheme + '-wishList');
@@ -81,17 +75,6 @@ $(document).ready(function() {
     $('#delete-confirm').html(`<b>Deleted user: ${deletedTheme}.</b>`);
   });
 
-  //display/input box
-  //sliders
-  //same sliders change value based on focus
-  //set value button?
-
-
-      // $('.background-slider').slider({
-      //   slide: (e,ui) => $('.background-color').val(`${ui.values[1]}`)
-      // });
-      // console.log(sliderValue);
-      // $('.background-color').val(sliderValue);
   let pickedColor = `rgb(${$('#red').val()}, ${$('#green').val()}, ${$('#blue').val()})`;
   $(document).on('input', '.slider', (e) => {
     if (e.currentTarget.id === 'red-slider') {
@@ -108,19 +91,18 @@ $(document).ready(function() {
     $('.square').css('background', pickedColor);
   });
 
-  $('.checkbox').on('change', function() {
+  $('.checkbox').on('change', function () {
     $('.checkbox').not(this).prop('checked', false);
   });
-
 
   let backgroundColor = 'white',
     titleColor = 'white',
     listColor = 'white',
     buttonColor = 'white';
 
-  $(document).on('click', '#submit-button', function (e){
+  $(document).on('click', '#submit-button', function (e) {
     e.preventDefault();
-    if ($('#background-color').prop('checked')){
+    if ($('#background-color').prop('checked')) {
       $('#background-square').css('background', pickedColor);
       backgroundColor = pickedColor;
     } else if ($('#title-color').prop('checked')) {
@@ -147,35 +129,25 @@ $(document).ready(function() {
       localStorage.setItem('custom-themes', JSON.stringify(customThemeList));
       localStorage.setItem('current-theme', customThemeName);
       $('#current-theme').html(`<b>Current Theme: ${customThemeName}</b>`);
-      $('#custom-name').val('Enter a name for your theme.');
+      selectedTheme = customThemeName;
+      $('#custom-name').val('Enter theme name.');
       $('#delete-custom').append(`<option value="${customThemeName}">${customThemeName}</option>`);
     } else {
       $('#custom-theme-error').html(`<b>A theme with that name already exists!</b>`);
     }
-
   });
 
-
-  $('#start-custom').on('click', () =>{
+  $('#start-custom').on('click', () => {
     $('#start-custom').hide();
     $('#custom-wrapper').show();
   });
 
-
-// <div id="delete-custom-container" >
-//     <select id="delete-custom" >
-//     <option selected disabled>Choose theme to delete</option>
-//   </select>
-//   </div>
-//   <span id="custom-delte-confirm"></span>
-
-  $(document).on('input', '#delete-custom', () => {
+  $(document).on('change', '#delete-custom', () => {
     let deletedTheme = $('#delete-custom option:selected').val();
     customThemeList = customThemeList.filter(el => el[0] !== deletedTheme);
     console.log(customThemeList);
     localStorage.setItem('custom-themes', JSON.stringify(customThemeList));
     $(`option:contains(${deletedTheme})`).remove();
-
 
     if (selectedTheme === deletedTheme) {
       $('#current-theme').html(`<b>Current Theme: Christmas</b>`)
@@ -184,8 +156,5 @@ $(document).ready(function() {
 
     $('#custom-delete-confirm').html(`<b>Deleted theme: ${deletedTheme}.</b>`);
   });
-
-
-
 
 });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <title>Link Formatter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/themes/flatly/bootstrap.css">
@@ -14,88 +14,72 @@
     <script src="js/lib/TweenMax.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet">
 
+</head>
 
-  </head>
+<body id="body">
+<div id="background"></div>
+<button id="options-button">&#9881;</button>
 
-  <body id="body">
-    <div id="background"></div>
-    <button id="options-button">&#9881;</button>
+<div id='container'></div>
 
-    <div id='container'></div>
+<div class="container">
 
-    <div class="container">
-
-
-
-
-
-      <div id="content">
+    <div id="content">
         <div class="buttonContainer">
         </div>
-      </div>
-      <canvas id="canvas"></canvas>
+    </div>
+    <canvas id="canvas"></canvas>
 
-
-
-
-
-
-
-
-      <div class="row">
+    <div class="row">
         <div class="col-sm-12">
-
-          <p>
-            <!--<h2>Ho Ho Ho Yo</h2>-->
+            <p>
             <h1 id="custom-name"></h1>
+            </p>
+            <img src="../images/santa.png" id="santa">
 
-          </p>
-          <!--<img src="../images/frog.png" height="50px">-->
-          <img src="../images/santa.png" id="santa">
+            <h3 id="tabTitle" class="lead"></h3>
 
-          <h3 id="tabTitle" class="lead"></h3>
+            <div>
+                <input id="urlInput" type="text"
+                       class="form-control"
+                       data-container="body"
+                       data-toggle="popover"
+                       data-placement="top"
+                       data-content="Added Item To List!!!"
+                >
+                <div class="input-group-append">
+                    <button id="add-item-button"
+                            class="btn btn-primary"
+                            type="button">
+                        Add to List
+                    </button>
 
-          <div>
-            <input id="urlInput" type="text"
-            class="form-control"
-            data-container="body"
-            data-toggle="popover"
-            data-placement="top"
-            data-content="Added Item To List!!!"
-            >
-            <div class="input-group-append">
-              <button id="add-item-button"
-                class="btn btn-primary"
-                type="button">
-                Add to List
-              </button>
-
-            </div>
-          </div>
-
-          <div class="listContainer">
-            <ul class="listlist">
-
-            </ul>
-
-            <div class='context-menu'>
-              <ul>
-                <!--<li><span class='edit'></span>&nbsp;<span id="url"></span></li>-->
-                <li><span class='edit'></span>&nbsp;<span>Edit Description</span></li>
-                <li><span class='delete'></span>&nbsp;<span>Delete Item</span></li>
-              </ul>
+                </div>
             </div>
 
-            <input type='hidden' value='' id='txt_id'>
+            <div class="listContainer">
+                <ul class="listlist">
 
-          </div> <!-- end col -->
-      </div> <!-- end row -->
-    </div> <!-- end container -->
+                </ul>
+
+                <div class='context-menu'>
+                    <ul>
+
+                        <li><span class='edit'></span>&nbsp;<span>Edit Description</span></li>
+                        <li><span class='delete'></span>&nbsp;<span>Delete Item</span></li>
+                    </ul>
+                </div>
+
+                <input type='hidden' value='' id='txt_id'>
+
+            </div>
+        </div>
+    </div>
 
     <script src="js/popup.js"></script>
 
-    </div>
+</div>
 
-  </body>
+</body>
 
 </html>

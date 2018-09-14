@@ -26,11 +26,12 @@
     </select>
     <span id="current-theme"></span>
 
-    <div><button id="start-custom" type="button" >Click To Create A Custom Theme</button></div>
-
+    <div>
+        <button id="start-custom" type="button">Click To Create A Custom Theme</button>
+    </div>
 
     <div id="custom-wrapper">
-    <div class="color-choice">
+            <div class="color-choice">
 
         <input type="checkbox" class="checkbox" id="background-color"> Background Color
         <input type="checkbox" class="checkbox" id="title-color"> Title Color
@@ -45,8 +46,8 @@
         <div class="rect" id="button-square"></div>
 
     </div>
-    <input type="text" placeholder="Enter A Name For Your Theme" id="custom-name">
-    <button id="submit-custom">Create Custom Theme</button>
+    <input type="text" placeholder="Enter Theme Name" id="custom-name" onClick="this.select()">
+    <button id="submit-custom">Lock In Colors and Create Theme</button>
     <div id="custom-theme-error"></div>
 
 
@@ -63,24 +64,20 @@
 
     </div>
 
-
-
-
     <div id="delete" style="margin-top:50px">
-        <select id="select-delete" >
+        <select id="select-delete">
             <option selected disabled>Choose user to delete</option>
         </select>
     </div>
     <span id="delete-confirm"></span>
 
-    <div id="delete-custom-container" >
-        <select id="delete-custom" >
+    <div id="delete-custom-container">
+        <select id="delete-custom">
             <option selected disabled>Choose theme to delete</option>
         </select>
     </div>
     <span id="custom-delete-confirm"></span>
 
-
     <script src="options.js"></script>
-</body>
+    </body>
 </html>

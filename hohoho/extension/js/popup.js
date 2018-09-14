@@ -1,17 +1,8 @@
 $(document).ready(function () {
 
   let capturedTitle,
-      username,
-      theme;
-
-  // const getOptions = (() => {
-  //   christmas = localStorage.getItem('christmas') ?
-  //               JSON.parse(localStorage.getItem('christmas')) :
-  //               true;
-  //   birthday = localStorage.getItem('birthday') ?
-  //              JSON.parse(localStorage.getItem('birthday')) :
-  //              true;
-  // })();
+    username,
+    theme;
 
   const getOptions = (() => {
     username = localStorage.getItem('user-name');
@@ -23,8 +14,6 @@ $(document).ready(function () {
       $('#custom-name').text((`${username}'s Wishlist`).toUpperCase());
     }
   })();
-
-
 
   let wishList = [];
   wishList = JSON.parse(localStorage.getItem(username + '-wishList')) || [];
@@ -42,33 +31,9 @@ $(document).ready(function () {
 
   populateList();
 
-
-  // const deleteItem = ($toDelete) => {
-  //
-  //   let $deleteUrl = $($toDelete).children('a').attr('href');
-  //   let index = wishList.findIndex(el => el.url === $deleteUrl);
-  //   wishList.splice(index, 1);
-  //   localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
-  //   // location.reload();
-  // };
-
-
-
-  // const confirmAdded = (id) => {
-  //   $('[data-toggle="popover"]').popover('disable').popover('hide');
-  //   $(id).popover('enable').popover('show');
-  //   setTimeout(() => { $(id).popover('disable').popover('hide'); }, 2000);
-  //   $(id).select();
-  // };
-
-
-
-  // let grow =  localStorage.getItem('santa') || "100";
-  // $("#custom-name").append(`<img src="../images/santa.png" id="santa" height="${grow}">`);
   $(document).on('click', '#add-item-button', (event) => {
     let inputId = '#' + event.target.id.replace('add-item-button', 'urlInput');
     let $capturedURL = $(inputId).val();
-    // let $capturedTitle = $('#tabTitle').text();
 
     let itemObj = {
       url: $capturedURL,
@@ -77,7 +42,6 @@ $(document).ready(function () {
 
     if (wishList.filter(el => el.url === $capturedURL).length < 1) {
       wishList.push(itemObj);
-
 
       localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
       let $listItem = $('<li></li>');
@@ -93,12 +57,6 @@ $(document).ready(function () {
     } else {
       alert('That item is already on your list!!!');
     }
-
-    // location.reload(); // could fix with event delegation
-
-    // grow = (Number(grow) + 20).toString();
-    // $("#santa").css("height", grow + 'px');
-    // localStorage.setItem('santa', grow);
 
   });
 
@@ -119,7 +77,7 @@ $(document).ready(function () {
       $inputBox.hide();
       wishList[index].title = title;
       localStorage.setItem(username + '-wishList', JSON.stringify(wishList));
-  });
+    });
 
     $inputBox.keypress((e) => {
       if (e.which === 13) {
@@ -145,7 +103,6 @@ $(document).ready(function () {
   const addLinkDataFromTab = (tabs) => {
     currentTab = tabs[0];
     capturedTitle = currentTab.title;
-    // $('#tabTitle').text(currentTab.title); //dont know if I want to keep this
     $('#urlInput').val(currentTab.url);
   };
 
@@ -155,9 +112,6 @@ $(document).ready(function () {
     $('#txt_id').val(id);
     var top = e.pageY + 5;
     var left = e.pageX;
-    // let url = $('#' + id).attr('href');
-    //
-    // $('#url').text(url);
 
     // Show contextmenu
     $('.context-menu').toggle(100).css({
@@ -192,8 +146,6 @@ $(document).ready(function () {
     if (className === 'edit') {
       editItem(editTarget);
     }
-        // location.reload();
-
 
     $('.context-menu').hide();
 
@@ -219,7 +171,6 @@ $(document).ready(function () {
     });
   }
 
-
   $(document).on('click', '#options-button', () => {
     if (chrome.runtime.openOptionsPage) {
       chrome.runtime.openOptionsPage();
@@ -228,73 +179,46 @@ $(document).ready(function () {
     }
   });
 
-
   const setTheme = (() => {
     if (theme === 'Christmas') {
-    var w = window.innerWidth, h = window.innerHeight,
-      container = document.getElementById("container"),
-      sizes = ["Small", "Medium", "Large"],
-      types = ["round", "star", "real", "sharp", "ring"],
-      snowflakes = 50;
+      var w = window.innerWidth, h = window.innerHeight,
+        container = document.getElementById("container"),
+        sizes = ["Small", "Medium", "Large"],
+        types = ["round", "star", "real", "sharp", "ring"],
+        snowflakes = 50;
 
-    for (var i = 0; i < snowflakes; i++) {
-      var snowflakeDiv = document.createElement('div');
-      var sizeIndex = Math.ceil(Math.random() * 3) - 1; //get random number between 0 and 2
-      var size = sizes[sizeIndex]; //get random size
-      var typeIndex = Math.ceil(Math.random() * 5) - 1;
-      var type = types[typeIndex];
-      TweenMax.set(snowflakeDiv, {attr: {class: type + size}, x: R(0, w), y: R(-200, -150)});
-      container.appendChild(snowflakeDiv);
-      snowing(snowflakeDiv);
-    }
+      for (var i = 0; i < snowflakes; i++) {
+        var snowflakeDiv = document.createElement('div');
+        var sizeIndex = Math.ceil(Math.random() * 3) - 1; //get random number between 0 and 2
+        var size = sizes[sizeIndex]; //get random size
+        var typeIndex = Math.ceil(Math.random() * 5) - 1;
+        var type = types[typeIndex];
+        TweenMax.set(snowflakeDiv, {attr: {class: type + size}, x: R(0, w), y: R(-200, -150)});
+        container.appendChild(snowflakeDiv);
+        snowing(snowflakeDiv);
+      }
 
-    function snowing(element) {
-      TweenMax.to(element, R(5, 12), {y: h + 100, ease: Linear.easeNone, repeat: -1, delay: -15});
-      TweenMax.to(element, R(4, 8), {x: '+=100', repeat: -1, yoyo: true, ease: Sine.easeInOut});
-      TweenMax.to(element, R(2, 8), {rotation: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5});
-    };
+      function snowing(element) {
+        TweenMax.to(element, R(5, 12), {y: h + 100, ease: Linear.easeNone, repeat: -1, delay: -15});
+        TweenMax.to(element, R(4, 8), {x: '+=100', repeat: -1, yoyo: true, ease: Sine.easeInOut});
+        TweenMax.to(element, R(2, 8), {rotation: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5});
+      };
 
-    function R(min, max) {
-      return min + Math.random() * (max - min);
-    };
-  } else if (theme === 'Birthday') {
+      function R(min, max) {
+        return min + Math.random() * (max - min);
+      };
+    } else if (theme === 'Birthday') {
       $('body').css('background-color', 'rgba(0,138,203, .7)');
       $('#santa').attr('src', '../images/birthdayfrog.png');
       $('#santa').css({
-                  'height': '240px',
-                  'margin': '-65px 0 -50px 10px'
+        'height': '240px',
+        'margin': '-65px 0 -50px 10px'
       });
       $('.listContainer a').css('background', 'forestgreen');
       $('h1').css('color', 'forestgreen');
       $('#add-item-button').css('box-shadow', 'none');
       $('#add-item-button').css('background', 'forestgreen');
-      // $('#add-item-button').remove();
-      // let newButton = `<button id="add-item-button" type="button">
-      //                  Add Item To List</button>`
-      // $('.input-group-append').append(newButton);
-      // $('#add-item-button').css({
-      //   border: 'none',
-      //   background: '#404040',
-      //   color: '#ffffff !important',
-      //   'font-weight': '100',
-      //   padding: '20px',
-      //   'text-transform': 'uppercase',
-      //   'border-radius': '6px',
-      //   display: 'inline-block'
-      //   });
-      // $('#add-item-button:hover').css({
-      //   color: '#404040 !important',
-      //   'font-weight': '700 !important',
-      //   'letter-spacing': '3px',
-      //   background: 'none',
-      //   '-webkit-box-shadow': '0px 5px 40px -10px rgba(0,0,0,0.57)',
-      //   '-moz-box-shadow': '0px 5px 40px -10px rgba(0,0,0,0.57)',
-      //   transition: 'all 0.3s ease 0s'
-      // })
 
-
-
-      // $('h1').css()
 
       (function () {
         // globals
@@ -406,7 +330,6 @@ $(document).ready(function () {
           return Math.floor(Math.random() * (to - from + 1) + from);
         }
 
-
         function Update() {
           var remainingFlakes = 0;
           var particle;
@@ -451,6 +374,7 @@ $(document).ready(function () {
             }
           }
         }
+
         function stepParticle(particle, particleIndex) {
           particle.tiltAngle += particle.tiltAngleIncremental;
           particle.y += (Math.cos(angle + particle.d) + 3 + particle.r / 2) / 2;
@@ -518,11 +442,10 @@ $(document).ready(function () {
         setTimeout(DeactivateConfetti, 2000);
       })();
 
-
     } else {
       //get info based on name
       let customTheme = JSON.parse(localStorage.getItem('custom-themes')).filter(el => el[0] === localStorage.getItem('current-theme'));
-      let [[a,backgroundColor, titleColor, listColor, buttonColor]] = customTheme;
+      let [[a, backgroundColor, titleColor, listColor, buttonColor]] = customTheme;
       console.log(customTheme);
 
       $('body').css('background-color', backgroundColor);
@@ -538,8 +461,6 @@ $(document).ready(function () {
     }
 
   })();
-
-
 
 });
 
