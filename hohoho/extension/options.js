@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   let users = JSON.parse(localStorage.getItem('users')) || [];
   let selectedUser = localStorage.getItem('user-name') || undefined;
-  let selectedTheme = localStorage.getItem('current-theme') || localStorage.setItem('current-theme', 'christmas');
+  let selectedTheme = localStorage.getItem('current-theme') || localStorage.setItem('current-theme', 'Christmas');
   let customThemeList = JSON.parse(localStorage.getItem('custom-themes')) || [];
 
   $('#custom-wrapper').hide();
